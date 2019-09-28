@@ -1,10 +1,10 @@
-from __future__ import print_function
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import os
 import time
 import tkinter
 from tkinter import *
+import subprocess
 
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
 
@@ -39,6 +39,9 @@ def getCredentials():
     SUBMIT_button.grid(row=3, column=1) # position for button
     root.mainloop()
     return credentialsList
+
+#To install required packages:
+subprocess.call([sys.executable, "-m", "pip", "install", "requirements.txt"]
 
 #Get credentials:
 if not os.path.isfile("AulaCredentials.txt"): #If we we dont have the credentials in a file already
