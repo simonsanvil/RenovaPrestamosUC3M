@@ -10,7 +10,7 @@ os.chdir(os.path.dirname(os.path.realpath(__file__)))
 
 def clickRenovarPrestamos():
     #Get UC3M credentials:
-    if not os.path.isfile("AulaCredentials.txt"): #If we we dont have the credentials in a file already
+    if not os.path.isfile("AulaCredentials1.txt"): #If we we dont have the credentials in a file already
         credentials = getCredentials() # TODO: NUMERO DE ESTUDIANTE y contrasena de aula global
         NIA = credentials[0]
         PASS = credentials[1]
@@ -22,7 +22,12 @@ def clickRenovarPrestamos():
             PASS = lineList[1]
 
     #Config selenium driver and webpage
-    driver = webdriver.Chrome(os.path.dirname(os.path.realpath(__file__))+'/chromedriver.exe')
+    options = webdriver.ChromeOptions()
+    options.add_argument('--ignore-certificate-errors')
+    options.add_argument('--incognito')
+    options.add_argument('--headless')
+    driver = webdriver.Chrome(os.path.dirname(os.path.realpath(__file__))+'/chromedriver.exe', chrome_options = options)
+
     URL = 'https://bibliotecas.uc3m.es/primo-explore/account?vid=34UC3M_VU1&lang=en_US&section=overview'
     driver.get(URL)
     driver.implicitly_wait(8)

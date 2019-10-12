@@ -4,3 +4,4 @@ Builds/
 setup.py
 renovaLibros.spec
 __pycache__/
+debug.log
