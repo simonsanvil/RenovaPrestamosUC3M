@@ -2,6 +2,6 @@ AulaCredentials.txt
 README.md
 Builds/
 setup.py
-renovaLibros.spec
 __pycache__/
 debug.log
+renovaLibros.py
