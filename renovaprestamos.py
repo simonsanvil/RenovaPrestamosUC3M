@@ -4,8 +4,7 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import os
 import time
-
-os.chdir(os.path.dirname(os.path.realpath(__file__)))
+import subprocess
 
 class renovaApp_Tk(Tk):
     def __init__(self,parent):
@@ -50,7 +49,7 @@ class renovaApp_Tk(Tk):
             PASS = PASS_entry.get()
             credentials.append(NIA)
             credentials.append(PASS)
-            OUTPUT_entry = self.webCrawl(credentials,URL, self, OUTPUT_entry)
+            OUTPUT_entry = self.webCrawl(credentials,URL, OUTPUT_entry)
 
         def destroyRoot():
             print('[TASK HAS BEEN COMPLETED]')
@@ -75,7 +74,7 @@ class renovaApp_Tk(Tk):
 
         self.mainloop()
 
-    def webCrawl(self,credentials, URL, root, OUTPUT_entry):
+    def webCrawl(self,credentials, URL, OUTPUT_entry):
         '''
         Funcion principal para realizar el web crawl hacia la pagina web de prestamos
         de la biblioteca de la UC3M.
@@ -83,7 +82,7 @@ class renovaApp_Tk(Tk):
         options = webdriver.ChromeOptions()
         options.add_argument('--ignore-certificate-errors')
         options.add_argument('--incognito')
-        #options.add_argument('--headless')
+        options.add_argument('--headless')
 
         driver = webdriver.Chrome(os.path.dirname(os.path.realpath(__file__))+'/chromedriver.exe', options = options)
         driver.get(URL)
@@ -133,11 +132,20 @@ class renovaApp_Tk(Tk):
 
         renew_button.send_keys(Keys.RETURN)
         print('[DONE]')
-        listElem =  driver.find_element_by_xpath('//*[@id="tab-content-7"]/div/div/prm-loans/md-list')
-        bookTitles = [item.get_attribute('title') for item in listElem.find_elements_by_tag_name('h3')]
-        [button.click() for button in listElem.find_elements_by_tag_name('button')]
-        bookAuthors = [item.text for item in listElem.find_elements_by_tag_name('h4')]
-        vencimientos = [ [item[0].text, item[6].text ] for item in [elem.find_elements_by_tag_name('p') for elem in listElem.find_elements_by_tag_name('prm-loan') ] ]
+        try:
+            listElem =  driver.find_element_by_xpath('//*[@id="tab-content-7"]/div/div/prm-loans/md-list')
+            bookTitles = [item.get_attribute('title') for item in listElem.find_elements_by_tag_name('h3')]
+            [button.click() for button in listElem.find_elements_by_tag_name('button')]
+            bookAuthors = [item.text for item in listElem.find_elements_by_tag_name('h4')]
+            vencimientos = [ [item[0].text, item[6].text ] for item in [elem.find_elements_by_tag_name('p') for elem in listElem.find_elements_by_tag_name('prm-loan') ] ]
+        except Exception as e:
+            print(e)
+            print('[THERE WAS AN ERROR]')
+            OUTPUT_entry["state"] = NORMAL
+            OUTPUT_entry.delete('1.0', END)
+            OUTPUT_entry.configure(foreground = 'red')
+            OUTPUT_entry.insert(END, 'Ha ocurrido un error al intentar renovar tus prestamos. Por favor intenta de nuevo.')
+            OUTPUT_entry["state"] = DISABLED
         [print(info.text) for info in [elem.find_elements_by_tag_name('p') for elem in listElem.find_elements_by_tag_name('prm-loan') ][0] ]
         s = 'Se han renovado los siguientes libros:\n'
         for i in range(len(bookTitles)):
@@ -153,5 +161,10 @@ class renovaApp_Tk(Tk):
         driver.quit()
         return OUTPUT_entry
 
+def installRequirementsWithPip():
+        subprocess.call([sys.executable,"-m", "pip", "install", "-r", "requirements.txt"])
+
 if __name__ == "__main__":
-    app = renovaApp_Tk()
+    os.chdir(os.path.dirname(os.path.realpath(__file__)))
+    installRequirementsWithPip()
+    app = renovaApp_Tk(None)
