@@ -2,7 +2,7 @@
 Aplicacion que renueva automaticamente tus prestamos de biblioteca de la Universidad Carlos III de Madrid.
 
 **Instrucciones:**
-1. Ejecuta el script desde una consola o desde tu IDE preferido (Spyder, PyCharm, VSC...)
+1. Ejecuta el script desde una consola o desde tu IDE preferido (Spyder, Atom, PyCharm, VSC...)
 2. Introduce tus credenciales de la UC3M en el formulario generado por el programa. 
 3. Presiona "Renovar Prestamos".
 4. Espera a que el programa culmine su tarea. Al acabar deberias ver la informacion acerca de tus renovaciones en el cuadro de texto
