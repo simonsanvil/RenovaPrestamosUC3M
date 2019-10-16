@@ -1,7 +1,7 @@
 # RenovadorLibrosUC3M
 Aplicacion que renueva automaticamente tus prestamos de biblioteca de la Universidad Carlos III de Madrid.
 
-Instrucciones:
+**Instrucciones:**
 1. Ejecuta el script desde una consola o desde tu IDE preferido (Spyder, PyCharm, VSC...)
 2. Introduce tus credenciales de la UC3M en el formulario generado por el programa. 
 3. Presiona "Renovar Prestamos".
@@ -9,12 +9,12 @@ Instrucciones:
 situado en la parte de abajo del formulario. De haber algun error, sigue las intrucciones de ese cuadro. 
 5. Cierra el formulario una vez hayas acabado. 
 
-Requiere: 
+**Requiere:** 
 - Python version 3.0 o mayor + pip.
 - Un usuario de Biblioteca UC3M (El NIA es valido).
 - La contraseña asociada a dicho usuario. 
 
-PARA RENOVAR SIN NECESIDAD DE INTRODUCIR TUS CREDENCIALES CADA VEZ QUE EJECUTES EL PROGRAMA: 
+**PARA RENOVAR SIN NECESIDAD DE INTRODUCIR TUS CREDENCIALES CADA VEZ QUE EJECUTES EL PROGRAMA:**
 1. Crea un archivo de texto *.txt* (usando Notepad, por ejemplo).
 2. En la primera linea escribe tu nombre de usuario de bilioteca de la UC3M. (NIA, StudentID, ISIC,...)
 3. En la segunda linea escribe la contraseña asociada a dicho usuario.
