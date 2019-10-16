@@ -14,6 +14,15 @@ class renovaApp_Tk(Tk):
 
     def initialize(self):
 
+        if os.path.isfile("AulaCredentials1.txt"):
+            lineList = [line.rstrip('\n') for line in open("AulaCredentials.txt")]
+            URL = 'https://bibliotecas.uc3m.es/primo-explore/account?vid=34UC3M_VU1&lang=en_US&section=overview'
+            NIA = lineList[0]
+            PASS = lineList[1]
+            self.webCrawl([NIA,PASS],URL,None)
+            print('[TAREA COMPLETADA]')
+            return None
+
         self.title('Login')
         self.iconbitmap('Logo_UC3M.ico')
 
@@ -31,6 +40,11 @@ class renovaApp_Tk(Tk):
         PASS_entry.pack()
 
         def getEntry():
+            OUTPUT_entry["state"] = NORMAL
+            OUTPUT_entry.configure(foreground = 'black')
+            OUTPUT_entry.delete('1.0', END)
+            OUTPUT_entry.insert(END, 'Introduce tus credenciales y presiona "Renovar Prestamos"')
+            OUTPUT_entry["state"] = DISABLED
             return OUTPUT_entry
 
         def tryCrawl():
@@ -38,11 +52,6 @@ class renovaApp_Tk(Tk):
             Para obtener el input de las credenciales de Aula global del estudiante e iniciar el crawling.
             '''
             OUTPUT_entry = getEntry()
-            OUTPUT_entry["state"] = NORMAL
-            OUTPUT_entry.configure(foreground = 'black')
-            OUTPUT_entry.delete('1.0', END)
-            OUTPUT_entry.insert(END, "Output will be displayed here")
-            OUTPUT_entry["state"] = DISABLED
             credentials = []
             URL = 'https://bibliotecas.uc3m.es/primo-explore/account?vid=34UC3M_VU1&lang=en_US&section=overview'
             NIA = USER_entry.get()
@@ -52,7 +61,7 @@ class renovaApp_Tk(Tk):
             OUTPUT_entry = self.webCrawl(credentials,URL, OUTPUT_entry)
 
         def destroyRoot():
-            print('[TASK HAS BEEN COMPLETED]')
+            print('[TAREA COMPLETADA]')
             self.destroy()
 
         SUBMIT_button = Button(self, text="Renovar Prestamos", width=15, command=tryCrawl) # button named ok
@@ -67,7 +76,7 @@ class renovaApp_Tk(Tk):
         yscrollbar.pack(side=TOP, fill=Y, pady = 10)
         OUTPUT_entry["yscrollcommand"]=yscrollbar.set
 
-        OUTPUT_entry.insert(END, "Output will be displayed here")
+        OUTPUT_entry.insert(END, 'Introduce tus credenciales y presiona "Renovar Prestamos"')
         OUTPUT_entry["state"] = DISABLED
 
         self.grid_columnconfigure(0,weight=0)
@@ -86,7 +95,7 @@ class renovaApp_Tk(Tk):
 
         driver = webdriver.Chrome(os.path.dirname(os.path.realpath(__file__))+'/chromedriver.exe', options = options)
         driver.get(URL)
-        driver.implicitly_wait(8)
+        driver.implicitly_wait(10)
 
         #Click Login with Aulaglobal button:
         login_button = driver.find_elements_by_xpath('//*[@id="tab-content-0"]/div/md-content/md-list/md-list-item[1]/div/button')[0]
@@ -102,33 +111,37 @@ class renovaApp_Tk(Tk):
         password.send_keys(PASS)
         driver.find_element_by_id("submit_ok").send_keys(Keys.RETURN)
 
+        print('Attempting login with username: ' + NIA)
         time.sleep(2)
-        print(driver.current_url)
+
         if driver.current_url != URL:
             s = "Error al iniciar sesion. Asegurate de que tus credenciales esten correctos e intenta de nuevo."
-            print("[LOGIN ERROR. MAKE SURE YOUR CREDENTIALS ARE CORRECT]")
+            print(s)
             # this creates text as a new label to the GUI
-            OUTPUT_entry["state"] = NORMAL
-            OUTPUT_entry.configure(foreground = 'red')
-            OUTPUT_entry.delete('1.0', END)
-            OUTPUT_entry.insert(END, s)
-            OUTPUT_entry["state"] = DISABLED
-            driver.quit()
-            return OUTPUT_entry
+            if OUTPUT_entry != None:
+                OUTPUT_entry["state"] = NORMAL
+                OUTPUT_entry.configure(foreground = 'red')
+                OUTPUT_entry.delete('1.0', END)
+                OUTPUT_entry.insert(END, s)
+                OUTPUT_entry["state"] = DISABLED
+                driver.quit()
+                return OUTPUT_entry
 
         #Click 'Renew' button
         try:
             renew_button = driver.find_element_by_xpath('//*[@id="tab-content-1"]/div/div/div/prm-loans-overview/div/div/div/div/button')
         except Exception as e:
-            print("[NO BOOKS TO RENEW]")
+            print(e)
+            print("[NO TIENES PRESTAMOS POR RENOVAR]")
             s = "No tienes prestamos por renovar"
-            OUTPUT_entry["state"] = NORMAL
-            OUTPUT_entry.configure(foreground = 'black')
-            OUTPUT_entry.delete('1.0', END)
-            OUTPUT_entry.insert(END, s)
-            OUTPUT_entry["state"] = DISABLED
-            driver.quit()
-            return OUTPUT_entry
+            if OUTPUT_entry != None:
+                OUTPUT_entry["state"] = NORMAL
+                OUTPUT_entry.configure(foreground = 'black')
+                OUTPUT_entry.delete('1.0', END)
+                OUTPUT_entry.insert(END, s)
+                OUTPUT_entry["state"] = DISABLED
+                driver.quit()
+                return OUTPUT_entry
 
         renew_button.send_keys(Keys.RETURN)
         print('[DONE]')
@@ -140,12 +153,13 @@ class renovaApp_Tk(Tk):
             vencimientos = [ [item[0].text, item[6].text ] for item in [elem.find_elements_by_tag_name('p') for elem in listElem.find_elements_by_tag_name('prm-loan') ] ]
         except Exception as e:
             print(e)
-            print('[THERE WAS AN ERROR]')
-            OUTPUT_entry["state"] = NORMAL
-            OUTPUT_entry.delete('1.0', END)
-            OUTPUT_entry.configure(foreground = 'red')
-            OUTPUT_entry.insert(END, 'Ha ocurrido un error al intentar renovar tus prestamos. Por favor intenta de nuevo.')
-            OUTPUT_entry["state"] = DISABLED
+            print('[Ha ocurrido un error al intentar renovar tus prestamos. Por favor intenta de nuevo luego.]')
+            if OUTPUT_entry != None:
+                OUTPUT_entry["state"] = NORMAL
+                OUTPUT_entry.delete('1.0', END)
+                OUTPUT_entry.configure(foreground = 'red')
+                OUTPUT_entry.insert(END, 'Ha ocurrido un error al intentar renovar tus prestamos. Por favor intenta de nuevo.')
+                OUTPUT_entry["state"] = DISABLED
         [print(info.text) for info in [elem.find_elements_by_tag_name('p') for elem in listElem.find_elements_by_tag_name('prm-loan') ][0] ]
         s = 'Se han renovado los siguientes libros:\n'
         for i in range(len(bookTitles)):
@@ -153,13 +167,14 @@ class renovaApp_Tk(Tk):
             s += str(i+1) + '. ' + bookTitles[i] + ' by ' + bookAuthors[i] + '.\n'
             s += '\tVence: ' + vence + '\n' + '\tFecha maxima de renovacion: ' + vencimientos[i][1].split(': ')[1]
             print(s)
-        OUTPUT_entry["state"] = NORMAL
-        OUTPUT_entry.delete('1.0', END)
-        OUTPUT_entry.configure(foreground = 'blue')
-        OUTPUT_entry.insert(END, s)
-        OUTPUT_entry["state"] = DISABLED
-        driver.quit()
-        return OUTPUT_entry
+        if OUTPUT_entry != None:
+            OUTPUT_entry["state"] = NORMAL
+            OUTPUT_entry.delete('1.0', END)
+            OUTPUT_entry.configure(foreground = 'blue')
+            OUTPUT_entry.insert(END, s)
+            OUTPUT_entry["state"] = DISABLED
+            driver.quit()
+            return OUTPUT_entry
 
 def installRequirementsWithPip():
         subprocess.call([sys.executable,"-m", "pip", "install", "-r", "requirements.txt"])
