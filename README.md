@@ -15,20 +15,18 @@ Requiere:
 - La contraseña asociada a dicho usuario. 
 
 PARA RENOVAR SIN NECESIDAD DE INTRODUCIR TUS CREDENCIALES CADA VEZ QUE EJECUTES EL PROGRAMA: 
-1. Crea un archivo .txt (usando Notepad, por ejemplo) 
-2. En la primera linea de texto escribe tu nombre de usuario de bilioteca de la UC3M. (NIA, StudentID, ISIC,...)
-3. En la segunda linea de texto escribe la contraseña asociada a dicho usuario.
- 
- _______________
- Ejemplo: 
+1. Crea un archivo de texto *.txt* (usando Notepad, por ejemplo).
+2. En la primera linea escribe tu nombre de usuario de bilioteca de la UC3M. (NIA, StudentID, ISIC,...)
+3. En la segunda linea escribe la contraseña asociada a dicho usuario.
+_______________
+ **Ejemplo:** 
  
  *100123456*      
                 
  *contraseña*
 
-*Nota: Ni tu usuario ni tu contraseña es enviado a un sitio ajeno al sitio oficial de la Biblioteca y no puede ser vista por desalloradores ni por terceros.*
-  ______________
-
+***Nota: Ni tu usuario ni tu contraseña es enviado a un sitio ajeno al sitio oficial de la Biblioteca y no puede ser vista por desalloradores ni por terceros.***
+______________
 4. Guarda el archivo en la carpeta donde se encuentra el script con el nombre "AulaCredentials".
 5. Cuando vuelvas a ejecutar el programa notaras que no te pedira tus credenciales usando el formulario.
 Nota: Para rehabilitar el formulario solo tienes que eliminar el archivo "AulaCredentials.txt" de la carpeta donde se encuentra el programa o moverlo a alguna otra ubicacion. 
