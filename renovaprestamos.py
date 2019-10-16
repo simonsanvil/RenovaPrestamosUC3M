@@ -14,7 +14,7 @@ class renovaApp_Tk(Tk):
 
     def initialize(self):
 
-        if os.path.isfile("AulaCredentials1.txt"):
+        if os.path.isfile("AulaCredentials.txt"):
             lineList = [line.rstrip('\n') for line in open("AulaCredentials.txt")]
             URL = 'https://bibliotecas.uc3m.es/primo-explore/account?vid=34UC3M_VU1&lang=en_US&section=overview'
             NIA = lineList[0]
