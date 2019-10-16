@@ -31,6 +31,7 @@ situado en la parte de abajo del formulario. De haber algun error, sigue las int
 -------------------------
 4. Guarda el archivo en la carpeta donde se encuentra el script con el nombre "AulaCredentials".
 5. Cuando vuelvas a ejecutar el programa notaras que no te pedira tus credenciales usando el formulario.
+
 Nota: Para rehabilitar el formulario solo tienes que eliminar el archivo "AulaCredentials.txt" de la carpeta donde se encuentra el programa o moverlo a alguna otra ubicacion. 
 
 *Para mayor automatizacion prueba usando aplicaciones como Windows Task Scheduler o Chron para programar la ejecucion del script cada cierto tiempo.* 
