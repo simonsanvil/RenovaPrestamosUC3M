@@ -34,7 +34,7 @@ class renovaApp_Tk(Tk):
         USER_entry = Entry(self, bd = 5)
         USER_entry.pack()
 
-        PASS_label = Label(self, text= 'Contraseña/Password:')
+        PASS_label = Label(self, text= 'Password:')
         PASS_label.pack()
         PASS_entry = Entry(self, bd = 5, show = '*')
         PASS_entry.pack()
