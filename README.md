@@ -6,8 +6,8 @@ Aplicacion que renueva automaticamente tus prestamos de biblioteca de la Univers
 2. Introduce tus credenciales de la UC3M en el formulario generado por el programa. 
 3. Presiona "Renovar Prestamos".
 4. Espera a que el programa culmine su tarea. Al acabar deberias ver la informacion acerca de tus renovaciones en el cuadro de texto
-situado en la parte de abajo del formulario. De haber algun error, sigue las intrucciones de ese cuadro. 
-5. Cierra el formulario una vez hayas acabado. 
+situado en la parte de abajo de la ventana de formulario. De haber algun error, sigue las intrucciones de ese cuadro. 
+5. Cierra la ventana del formulario una vez hayas acabado. 
 
 ### **Requerimientos:** 
 - Python version 3.0 o mayor + pip.
