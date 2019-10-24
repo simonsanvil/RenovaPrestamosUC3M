@@ -1,10 +1,12 @@
+import installrequirements
+
 import tkinter
 from tkinter import *
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+
 import os
 import time
-import subprocess
 
 class renovaApp_Tk(Tk):
     def __init__(self,parent):
@@ -125,7 +127,7 @@ class renovaApp_Tk(Tk):
                 OUTPUT_entry.insert(END, s)
                 OUTPUT_entry["state"] = DISABLED
                 driver.quit()
-                return OUTPUT_entry
+            return OUTPUT_entry
 
         #Click 'Renew' button
         try:
@@ -141,7 +143,7 @@ class renovaApp_Tk(Tk):
                 OUTPUT_entry.insert(END, s)
                 OUTPUT_entry["state"] = DISABLED
                 driver.quit()
-                return OUTPUT_entry
+            return OUTPUT_entry
 
         renew_button.send_keys(Keys.RETURN)
         print('[DONE]')
@@ -158,15 +160,19 @@ class renovaApp_Tk(Tk):
                 OUTPUT_entry["state"] = NORMAL
                 OUTPUT_entry.delete('1.0', END)
                 OUTPUT_entry.configure(foreground = 'red')
-                OUTPUT_entry.insert(END, 'Ha ocurrido un error al intentar renovar tus prestamos. Por favor intenta de nuevo.')
+                OUTPUT_entry.insert(END, 'Ha ocurrido un error al intentar renovar tus prestamos. Por favor intenta de mas tarde.')
                 OUTPUT_entry["state"] = DISABLED
-        [print(info.text) for info in [elem.find_elements_by_tag_name('p') for elem in listElem.find_elements_by_tag_name('prm-loan') ][0] ]
-        s = 'Se han renovado los siguientes libros:\n'
+            return OUTPUT_entry
+        #[print(info.text) for info in [elem.find_elements_by_tag_name('p') for elem in listElem.find_elements_by_tag_name('prm-loan')][0]]
+        print('Se han renovado los siguientes libros:')
+        s = 'Se han renovado los siguientes libros:'
         for i in range(len(bookTitles)):
+            s += '\n'
             vence = vencimientos[i][0].split(': ')[1]
-            s += str(i+1) + '. ' + bookTitles[i] + ' by ' + bookAuthors[i] + '.\n'
-            s += '\tVence: ' + vence + '\n' + '\tFecha maxima de renovacion: ' + vencimientos[i][1].split(': ')[1]
-            print(s)
+            info = str(i+1) + '. ' + bookTitles[i] + ' by ' + bookAuthors[i] + '.\n'
+            info += '\tVence: ' + vence + '\n' + '\tFecha maxima de renovacion: ' + vencimientos[i][1].split(': ')[1]
+            print(info)
+            s += info
         if OUTPUT_entry != None:
             OUTPUT_entry["state"] = NORMAL
             OUTPUT_entry.delete('1.0', END)
@@ -174,12 +180,8 @@ class renovaApp_Tk(Tk):
             OUTPUT_entry.insert(END, s)
             OUTPUT_entry["state"] = DISABLED
             driver.quit()
-            return OUTPUT_entry
-
-def installRequirementsWithPip():
-        subprocess.call([sys.executable,"-m", "pip", "install", "-r", "requirements.txt"])
+        return OUTPUT_entry
 
 if __name__ == "__main__":
     os.chdir(os.path.dirname(os.path.realpath(__file__)))
-    installRequirementsWithPip()
     app = renovaApp_Tk(None)
