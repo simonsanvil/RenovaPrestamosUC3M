@@ -1,4 +1,4 @@
-# RenovadorLibrosUC3M
+# RenovaPrestamosUC3M
 Aplicacion que renueva automaticamente tus prestamos de biblioteca de la Universidad Carlos III de Madrid.
 
 ### **Instrucciones:**
