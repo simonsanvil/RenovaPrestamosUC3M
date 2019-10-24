@@ -29,10 +29,10 @@ contraseña
 ***Nota: Ni tu usuario ni tu contraseña es enviado a un sitio ajeno al sitio oficial de la Biblioteca y no puede ser vista por desalloradores ni por terceros.***
 
 -------------------------
-4. Guarda el archivo en la carpeta donde se encuentra el script con el nombre ```AulaCredentials.txt```.
-5. Cuando vuelvas a ejecutar el programa notaras que no te pedira tus credenciales usando el formulario.
+4. Guarda el archivo en la carpeta donde se encuentra el programa con el nombre ```AulaCredentials.txt```.
+5. Cuando ejecutes el programa notaras que no pedira por tus credenciales ni se generara la ventana del formulario.
 
-Nota: Para volver a obtener el formulario solo tienes que removel el archivo ```AulaCredentials.txt``` de la carpeta donde se encuentra el programa. 
+Nota: Para volver a obtener el formulario solo tienes que remover el archivo ```AulaCredentials.txt``` de la carpeta donde se encuentra el programa. 
 
 *Para mayor automatizacion prueba usando aplicaciones como Windows Task Scheduler o Chron para programar la ejecucion del script cada cierto tiempo.* 
 
