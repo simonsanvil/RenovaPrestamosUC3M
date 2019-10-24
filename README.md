@@ -15,9 +15,9 @@ situado en la parte de abajo de la ventana de formulario. De haber algun error, 
 - La contraseña asociada a dicho usuario. 
 
 **PARA RENOVAR SIN NECESIDAD DE INTRODUCIR TUS CREDENCIALES CADA VEZ QUE EJECUTES EL PROGRAMA:**
-1. Crea un archivo de texto *.txt* (usando Notepad, por ejemplo).
-2. En la primera linea escribe tu nombre de usuario de bilioteca de la UC3M. (NIA, StudentID, ISIC,...)
-3. En la segunda linea escribe la contraseña asociada a dicho usuario.
+- Crea un archivo de texto *.txt* (usando Notepad, por ejemplo).
+- En la primera linea escribe tu nombre de usuario de bilioteca de la UC3M. (NIA, StudentID, ISIC,...)
+- En la segunda linea escribe la contraseña asociada a dicho usuario.
 ---------------------- 
  **Ejemplo:** 
 ```
@@ -29,8 +29,8 @@ contraseña
 ***Nota: Ni tu usuario ni tu contraseña es enviado a un sitio ajeno al sitio oficial de la Biblioteca y no puede ser vista por desalloradores ni por terceros.***
 
 -------------------------
-4. Guarda el archivo en la carpeta donde se encuentra el programa con el nombre ```AulaCredentials```.
-5. Cuando ejecutes el programa notaras que no pedira por tus credenciales ni se generara la ventana del formulario.
+- Guarda el archivo en la carpeta donde se encuentra el programa con el nombre ```AulaCredentials```.
+- Cuando ejecutes el programa notaras que no pedira por tus credenciales ni se generara la ventana del formulario.
 
 Nota: Para volver a obtener el formulario solo tienes que remover el archivo ```AulaCredentials.txt``` de la carpeta donde se encuentra el programa. 
 
