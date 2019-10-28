@@ -60,6 +60,7 @@ class renovaApp_Tk(Tk):
             PASS = PASS_entry.get()
             credentials.append(NIA)
             credentials.append(PASS)
+            print(credentials)
             OUTPUT_entry = self.webCrawl(credentials,URL, OUTPUT_entry)
 
         def destroyRoot():
@@ -113,10 +114,12 @@ class renovaApp_Tk(Tk):
         password.send_keys(PASS)
         driver.find_element_by_id("submit_ok").send_keys(Keys.RETURN)
 
-        print('Attempting login with username: ' + NIA)
-        time.sleep(2)
 
-        if driver.current_url != URL:
+        print('Attempting login with username: ' + NIA)
+        driver.implicitly_wait(10)
+
+
+        if "login.uc3m.es" in driver.current_url:
             s = "Error al iniciar sesion. Asegurate de que tus credenciales esten correctos e intenta de nuevo."
             print(s)
             # this creates text as a new label to the GUI
